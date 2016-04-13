@@ -1,4 +1,4 @@
-//task2b
+//task2b this counts the number of steps any x,y value goes through before escaping the mandelbrot set or not escaping
 
 #include "mandelbrot.h"
 #include <stdlib.h>
