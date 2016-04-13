@@ -18,10 +18,12 @@ int main (int argc, char *argv[]){
 
 int escapeSteps (double x, double y) {
 	int numberOfSteps;
-	while( (x * x + y * y) <= 4 || numberOfSteps <= 256 ) {
-		x = x * x - y * y + x;
-		y = 2 * x * y + y;
-		numberOfSteps++;
+	while((x * x) + (y * y) <= 4 && (x * x + y * y >= -4) && numberOfSteps < 256) {
+           double xcopy = ((x * x) - (y * y) + xcversion);
+           double ycopy = ((2 * x * y) + ycversion);
+           x = xcopy;
+           y = ycopy;
+           numberOfSteps++;
 	}
 	return numberOfSteps;
 }
