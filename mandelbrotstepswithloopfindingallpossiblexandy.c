@@ -8,36 +8,51 @@
 int escapeSteps (double x, double y);
 
 int main (int argc, char *argv[]){
-	double x = -256;
-	double y = -256;
-//print all the values of x and y from (-256, -256) to (256, 256)
-    while(y < 256) {
-    	while(x < 256) {
-    		x = -256;
-    		escapeSteps(x,y);
-    		possibleMandelbrotPoints [512*512];
-    		int pos = 0;
-    		double possibleMandelbrotPoints[pos] = numberOfSteps;
-    		x++;
-    		pos++;
-    	}
-    	y++;
-    }
-	
+        double x = -2
+;
+        double y = -2;
+        int pos = 1;
+        int possibleMandelbrotPoints [10000];
 
-	return EXIT_SUCCESS;
+//print all the values of x and y from (-256, -256) to (256, 256)
+    while(y < 2) {
+        x = -2;
+        while(x< 2) {
+            escapeSteps(x,y);
+            possibleMandelbrotPoints[pos] = escapeSteps(x,y);
+            //printf("for position %d it is %d\n", pos, possibleMandelbrotPoints[pos]);
+            if (possibleMandelbrotPoints[pos] < 256) {
+                printf(" ");
+            } else if ( possibleMandelbrotPoints[pos] == 256) {
+                printf("*");
+            } else if (pos % 100 == 0) {
+                printf("\n");
+            }
+            x+= 0.05;
+            pos++;
+        }
+        y+=0.1;
+    }
+        return EXIT_SUCCESS;
 
 }
+
 
 int escapeSteps (double x, double y) {
-	int numberOfSteps;
-	while( (x * x + y * y) <= 4 || numberOfSteps <= 256 ) {
-		x = x * x - y * y + x;
-		y = 2 * x * y + y;
-		numberOfSteps++;
-	}
-	return numberOfSteps;
+    int numberOfSteps= 1;
+        double xcversion = x;
+        double ycversion = y;
+
+    while((x * x) + (y * y) <= 4 && (x * x + y * y >= -4) && numberOfSteps < 256) {
+           double xcopy = ((x * x) - (y * y) + xcversion);
+           double ycopy = ((2 * x * y) + ycversion);
+           x = xcopy;
+           y = ycopy;
+           numberOfSteps++;
+    }
+    return numberOfSteps;
 }
+
 
 
 
