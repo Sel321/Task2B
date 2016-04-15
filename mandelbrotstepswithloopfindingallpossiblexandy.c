@@ -13,30 +13,45 @@ int main (int argc, char *argv[]){
         double y = -2;
         int pos = 1;
         int possibleMandelbrotPoints [10000];
+//task2b
 
-//print all the values of x and y from (-256, -256) to (256, 256)
-    while(y < 2) {
+#include "mandelbrot.h"
+#include <stdlib.h>
+#include <stdio.h>
+#include <assert.h>
+
+int escapeSteps (double x, double y);
+
+int main (int argc, char *argv[]){
+   double x = -2;
+   double y = -2;
+   int pos = 1;
+   int possibleMandelbrotPoints [10000];
+
+   //print all the values of x and y from (-256, -256) to (256, 256)
+   while(y < 2) {
         x = -2;
         while(x< 2) {
-            escapeSteps(x,y);
-            possibleMandelbrotPoints[pos] = escapeSteps(x,y);
-            //printf("for position %d it is %d\n", pos, possibleMandelbrotPoints[pos]);
-            if (possibleMandelbrotPoints[pos] < 256) {
-                printf(" ");
-            } else if ( possibleMandelbrotPoints[pos] == 256) {
-                printf("*");
-            } else if (pos % 100 == 0) {
-                printf("\n");
-            }
-            x+= 0.05;
-            pos++;
+           escapeSteps(x,y);
+           possibleMandelbrotPoints[pos] = escapeSteps(x,y);
+           //printf("for position %d it is %d\n", pos, possibleMandelbrotPoints[pos]);
+                if (possibleMandelbrotPoints[pos] < 256 && pos % 80 != 0) {
+                   printf(" ");
+                } else if ( possibleMandelbrotPoints[pos] == 256 && pos % 80 != 0) {
+                   printf("*");
+                } else if (pos % 80  == 0 && possibleMandelbrotPoints[pos] == 256) {
+                   printf("*\n");
+                } else if (pos % 80 == 0 && possibleMandelbrotPoints[pos] < 256) {
+                   printf(" \n");
+                }
+                x+= 0.05;
+                pos++;
         }
         y+=0.1;
     }
         return EXIT_SUCCESS;
 
 }
-
 
 int escapeSteps (double x, double y) {
     int numberOfSteps= 1;
