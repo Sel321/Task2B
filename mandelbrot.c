@@ -18,6 +18,8 @@ int main (int argc, char *argv[]){
 
 int escapeSteps (double x, double y) {
 	int numberOfSteps;
+	double xcversion = x;
+	double ycversion = y;
 	while((x * x) + (y * y) <= 4 && (x * x + y * y >= -4) && numberOfSteps < 256) {
            double xcopy = ((x * x) - (y * y) + xcversion);
            double ycopy = ((2 * x * y) + ycversion);
@@ -42,15 +44,3 @@ int escapeSteps (double x, double y) {
 
 }
 
-
-
-/*while (((x+y)(x+y) + (a+b)) < 4 || counter < 1000000) {
-                    int counter=0;
-                    do the mandelbrot calcs so that x and y have new values.
-                    counter++;
-                }
-                printf("Counter for position %d, %d is %d" a , b , counter);
-                position[pos] = counter;
-                pos++;
-                a = (pos % 512);
-                b = pos/512 (where b is an int????);
