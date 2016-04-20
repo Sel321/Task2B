@@ -87,54 +87,51 @@ void serveBMP (int socket) {
    write (socket, message, strlen (message));
    
    // now send the BMP
-   unsigned char bmp[] = {
-     0x42,0x4d,0x5a,0x00,0x00,0x00,0x00,0x00,
-     0x00,0x00,0x36,0x00,0x00,0x00,0x28,0x00,
-     0x00,0x00,0x03,0x00,0x00,0x00,0x03,0x00,
-     0x00,0x00,0x01,0x00,0x18,0x00,0x00,0x00,
-     0x00,0x00,0x24,0x00,0x00,0x00,0x13,0x0b,
-     0x00,0x00,0x13,0x0b,0x00,0x00,0x00,0x00,
-     0x00,0x00,0x00,0x00,0x00,0x00,0x07,0x07,
-     0xff,0x07,0x07,0x07,0x07,0x07,0xff,0x00,
-     0x00,0x0e,0x07,0x07,0x07,0x66,0x07,0x07,
-     0x07,0x07,0x07,0x00,0x00,0x0d,0x07,0x07,
-     0x07,0x07,0x07,0x07,0xff,0xff,0xff,0x00,
-     0x00,0x0d};
+   unsigned char bmp[512 * 512 + 54] = {
+     0x42,0x4d,0x36,0x04,0x04,0x00,0x00,0x00,
+     0x00,0x00,0x36,0x04,0x00,0x00,0x28,0x00,
+     0x00,0x00,0x00,0x02,0x00,0x00,0x00,0x02,
+     0x00,0x00,0x01,0x00,0x08,0x00,0x00,0x00,
+     0x00,0x00,0x00,0x04,0x00,0x00,0x00,0x00,
+     0x00,0x00,0x00,0x00,0x00,0x00,0x01,0x00,
+     0x00,0x00,0x00,0x00,0x00};
 
 
 
 
-     /*the task 2B BMP Mandelbrot code
+     //the task 2B BMP Mandelbrot code
 //to calculate number of times it goes in
-     pos = 0;
-        int (x,y);
-        int counter;
-        while (pos<512*512) {
-                while (((x+y)(x+y) + (a+b)) < 4 || counter < 1000000) {
-                    int counter=0;
-                    do the mandelbrot calcs so that x and y have new values.
-                    counter++;
+     
+    double x = -2.56;
+    double y = -2.56;
+    int pos = 1;
+    int possibleMandelbrotPoints [512*512];
+
+    while(y < 2.55) {
+      x = -2.56;
+      while(x< 2.55) {
+        escapeSteps(x,y);
+        possibleMandelbrotPoints[pos] = escapeSteps(x,y);
+        //printf("for position %d it is %d\n", pos, possibleMandelbrotPoints[pos]);
+           if (possibleMandelbrotPoints[pos] < 1000) {
+                   bmp[pos + 53] = 0xFF;
+                   bmp[pos+54] = 0xFF;
+                   bmp[pos+55] = 0xFF;
+                } else if ( possibleMandelbrotPoints[pos] == 1000) {
+                   bmp[pos + 53] = 0x00;
+                   bmp[pos+54] = 0x00;
+                   bmp[pos+55] = 0x00;
                 }
-                printf("Counter for position %d, %d is %d" a , b , counter);
-                position[pos] = counter;
+                /* else if (pos %   == 0 && possibleMandelbrotPoints[pos] == 1000) {
+                   printf("black newline");
+                } else if (pos % 80 == 0 && possibleMandelbrotPoints[pos] < 1000) {
+                   printf(" blacknewline");
+                }*/
+                x+= 0.005;
                 pos++;
-                a = (pos % 512);
-                b = pos/512 (where b is an int????);
-     }
-
-    int pixel[512*512];
-    make struct for rgb;
-do color scheme stuff i.e:
-  
-    if(0<position[]<10) {
-        pixel[pos] = RGB VALUES;
+        }
+        y+=0.02;
     }
-    fwrite(pixel[], sizeof(pixel[]),1, mandelbrot.bmp); //if you can do that
-
-
-
-
-  */
 
    write (socket, bmp, sizeof(bmp));
 }
